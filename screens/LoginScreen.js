@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Alert, Image, Text } from 'react-native';
-import { TextInput, Button } from 'react-native-paper';
+import { TextInput, Button, ActivityIndicator } from 'react-native-paper';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // Loading state
 
   const handleLogin = async () => {
+    setIsLoading(true); // Start loading
     try {
       const response = await axios.post("http://192.168.0.104:5000/api/auth/login", {
         email,
@@ -24,6 +26,8 @@ const LoginScreen = ({ navigation }) => {
       }
     } catch (error) {
       Alert.alert("Error", error.response?.data?.msg || "Login failed");
+    } finally {
+      setIsLoading(false); // Stop loading
     }
   };
 
@@ -52,10 +56,17 @@ const LoginScreen = ({ navigation }) => {
         secureTextEntry
         style={styles.input}
       />
-      <Button mode="contained" onPress={handleLogin} style={styles.button}>
-        Login
-      </Button>
-      <Button onPress={() => navigation.navigate("Signup")}>Sign Up</Button>
+
+      {isLoading ? (
+        <ActivityIndicator size="large" color="#1e40af" style={styles.loading} />
+      ) : (
+        <>
+          <Button mode="contained" onPress={handleLogin} style={styles.button}>
+            Login
+          </Button>
+          <Button onPress={() => navigation.navigate("Signup")}>Sign Up</Button>
+        </>
+      )}
     </View>
   );
 };
@@ -85,6 +96,9 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 20,
+  },
+  loading: {
+    marginVertical: 20, // Adds space between the loader and buttons
   },
 });
 
