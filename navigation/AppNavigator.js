@@ -35,7 +35,7 @@ export default function AppNavigator() {
             <Stack.Screen name="LoginVerify" component={LoginVerifyScreen} />
             <Stack.Screen name="Signup" component={SignupScreen} options={{headerShown: false }} />
             <Stack.Screen name="SignupVerify" component={SignupVerifyScreen} />
-            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false }} />
             <Stack.Screen name="Profile" component={ProfileScreen} />
           </Stack.Navigator>
         </NavigationContainer>

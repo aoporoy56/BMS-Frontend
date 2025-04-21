@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Alert, Image } from "react-native";
 import { TextInput, Button, Text, useTheme } from "react-native-paper";
 import axios from "axios";
 
@@ -32,7 +32,17 @@ export default function SignupVerifyScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
+      {/* Logo at the top */}
+      <Image
+        source={require("../assets/image.png")} // adjust path as needed
+        style={styles.logo}
+        resizeMode="contain"
+      />
+
+      {/* Title */}
       <Text style={styles.title}>Verify Your Email</Text>
+
+      {/* OTP Input */}
       <TextInput
         label="OTP"
         value={otp}
@@ -40,6 +50,8 @@ export default function SignupVerifyScreen({ route, navigation }) {
         keyboardType="numeric"
         style={styles.input}
       />
+
+      {/* Verify Button */}
       <Button mode="contained" onPress={handleVerify} style={styles.button}>
         Verify OTP
       </Button>
@@ -52,12 +64,20 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     padding: 20,
+    backgroundColor: "#fff",
+  },
+  logo: {
+    width: 150,
+    height: 150,
+    alignSelf: "center",
+    marginBottom: 10,
   },
   title: {
-    fontSize: 22,
+    fontSize: 24,
+    fontWeight: "bold",
     textAlign: "center",
     marginBottom: 20,
-    fontWeight: "bold",
+    color: "#1e40af",
   },
   input: {
     marginBottom: 15,

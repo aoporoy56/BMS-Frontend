@@ -91,7 +91,9 @@ export default function ProfileScreen({ navigation }) {
   const handleDelete = async () => {
     setLoading(true);
     try {
-      const res = await deleteUser({ email: user.email });
+      const res = await axios.post("http://192.168.0.104:5000/api/auth/delete", {
+        email : editableUser.email
+      });
       if (res.status === 200) {
         await AsyncStorage.removeItem('user');
         Alert.alert("Success", "User deleted successfully.");
@@ -174,7 +176,7 @@ export default function ProfileScreen({ navigation }) {
         Upload Profile Image
       </Button> */}
 
-      <Text style={styles.heading}>User Profile</Text>
+      <Text style={styles.heading}>{editableUser.name}</Text>
 
       <TextInput
         label="Name"

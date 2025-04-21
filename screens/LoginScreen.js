@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
+import { View, StyleSheet, Alert, Image, Text } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -16,7 +16,6 @@ const LoginScreen = ({ navigation }) => {
       });
 
       if (response.status === 200) {
-        // Save the token and user details to AsyncStorage
         await AsyncStorage.setItem('userToken', response.data.token);
         await AsyncStorage.setItem('user', JSON.stringify(response.data.user));
 
@@ -30,6 +29,16 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      {/* Top Logo */}
+      <Image
+        source={require('../assets/image.png')} // Make sure the path is correct
+        style={styles.logo}
+        resizeMode="contain"
+      />
+
+      {/* Login Title */}
+      <Text style={styles.title}>Login</Text>
+
       <TextInput
         label="Email"
         value={email}
@@ -56,6 +65,20 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 20,
+    backgroundColor: '#fff',
+  },
+  logo: {
+    width: 150,
+    height: 150,
+    alignSelf: 'center',
+    marginBottom: 10,
+  },
+  title: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 20,
+    color: '#1e40af',
   },
   input: {
     marginBottom: 10,
